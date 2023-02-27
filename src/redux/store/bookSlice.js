@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const getBooks = createAsyncThunk("book/getBooks", async (_, thunkAPI) => {
+export const getBooks = createAsyncThunk("book/getBooks", async (_, thunkAPI) => {
   try {
     const res = await fetch("http://localhost:3005/books");
     const data = await res.json();
@@ -14,7 +14,15 @@ const bookSlice = createSlice({
   name: "book",
   initialState: { books: null },
   extraReducers: {
-    [getBooks]: (state, action) => {},
+    [getBooks.pending]: (state, action) => {
+      console.log(action);
+    },
+    [getBooks.fulfilled]: (state, action) => {
+      console.log(action);
+    },
+    [getBooks.rejected]: (state, action) => {
+      console.log(action);
+    },
   },
 });
 
